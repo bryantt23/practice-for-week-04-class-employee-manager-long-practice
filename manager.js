@@ -9,18 +9,17 @@ class Manager extends Employee {
     this.employees.push(employee);
   }
   calculateBonus(multiplier) {
-    return this._totalSubSalary(this) * multiplier;
+    return (this.salary + this._totalSubSalary()) * multiplier;
   }
-  _totalSubSalary(employee) {
-    //base case
-    if (!employee.employees) {
-      console.log(employee.salary);
-      return employee.salary;
-    }
-
-    let res = employee.salary;
-    for (const emp of employee.employees) {
-      res += this._totalSubSalary(emp);
+  https://raw.githubusercontent.com/dchung007/wk4-practice/main/wk4d2-employee-manager-syntax/manager.js
+  _totalSubSalary() {
+    let res = 0;
+    for (const emp of this.employees) {
+      if (emp instanceof Manager) {
+        res += emp._totalSubSalary() + emp.salary;
+      } else {
+        res += emp.salary;
+      }
     }
     return res;
   }
